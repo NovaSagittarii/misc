@@ -67,8 +67,8 @@ var sketchProc = function(processingInstance){ with (processingInstance){
   var atk = [null, 36, 1, 10, 1, 1];
   var hp = [null, 100, 80, 140, 80, 300];
   var omult = [null, 1, 1.2, 1, 1.2, 0.3]
-  var oomph = [1.4, 2.4, 3.2];
-  var dmg = [15, 60, 30];
+  var oomph = [1.2, 1.6, 2.3];
+  var dmg = [15, 45, 30];
   var dtr = [40, 20, 35]; // Distance TRaveled
   var pierce = [1, 2, 10];
   function Projectile(x, y, r, v, alignment, ID){
@@ -90,11 +90,11 @@ var sketchProc = function(processingInstance){ with (processingInstance){
         image(arrow, 0, 0, 11, 2);
         break;
       case BULLET:
-        fill(0, 0, 0, this.t);
+        fill(0, 0, 0, this.t*20);
         ellipse(0, 0, 2, 2);
         break;;
       case CBALL:
-        fill(0, 0, 0, min(this.t*10, this.pierce*30));
+        fill(0, 0, 0, 2*min(this.t*10, this.pierce*30));
         ellipse(0, 0, 4, 4);
         break;
     }
@@ -220,16 +220,16 @@ var sketchProc = function(processingInstance){ with (processingInstance){
     }
     switch(this.ID){
       case ARCHER:
-        this.v = dist(this.x, this.y, e[goTo].x, e[goTo].y) > 200 ? min(this.v+this.ac/10, 1) : this.v/abs(this.v)*max(abs(this.v)-this.ac/10, 0);
+        this.v = dist(this.x, this.y, e[goTo].x, e[goTo].y) > 200 ? min(this.v+this.ac/10, 1) : this.v/abs(this.v)*max(abs(this.v)-this.ac/8, 0);
         if(frameCount % ~~(this.ac*180) === 0) p.push(new Projectile(this.x, this.y, this.r + random(-0.01, 0.01), 8, this.a, ARROW));
         break;
       case MUSKET:
-        this.v = dist(this.x, this.y, e[goTo].x, e[goTo].y) > 140 ? min(this.v+this.ac/10, 1) : this.v/abs(this.v)*max(abs(this.v)-this.ac/10, 0);
+        this.v = dist(this.x, this.y, e[goTo].x, e[goTo].y) > 140 ? min(this.v+this.ac/10, 1) : this.v/abs(this.v)*max(abs(this.v)-this.ac/8, 0);
         if(frameCount % ~~(this.ac*600) === 0) p.push(new Projectile(this.x, this.y, this.r + random(-0.2, 0.2), 18, this.a, BULLET));
         if(this.HP < 30 || dist(this.x, this.y, e[goTo].x, e[goTo].y) < 20) this.ID = BAYONET;
         break;
       case CANNON:
-      this.v = dist(this.x, this.y, e[goTo].x, e[goTo].y) > 400 ? min(this.v+this.ac/10, 1) : this.v/abs(this.v)*max(abs(this.v)-this.ac/10, 0);
+      this.v = dist(this.x, this.y, e[goTo].x, e[goTo].y) > 400 ? min(this.v+this.ac/10, 1) : this.v/abs(this.v)*max(abs(this.v)-this.ac/8, 0);
       if(frameCount % ~~(this.ac*400) === 0){
         p.push(new Projectile(this.x, this.y, this.r + random(-0.02, 0.02), 12, this.a, CBALL));
         this.v = -1.4;
@@ -300,7 +300,7 @@ var sketchProc = function(processingInstance){ with (processingInstance){
         drawE(1 + (mouseY>400), selected);
         popMatrix();
         if((mc || (mp && dist(mouseX, mouseY, pmouseX, pmouseY) > 8)) && pselect === selected){
-          e.push(new Entity(mouseX, mouseY, Math.PI/2 + Math.PI*(mouseY>400), 1 + (mouseY>400), selected));
+          e.push(new Entity(mouseX, mouseY, Math.PI*(mouseY<400) - Math.PI/2, 1 + (mouseY>400), selected));
           setup = restoreState(e);
         }
       }
@@ -314,7 +314,7 @@ var sketchProc = function(processingInstance){ with (processingInstance){
         fill(255, 0, 0, (20+e[i].hurt-frameCount)*6);
         ellipse(e[i].x, e[i].y, 8, 8);
         fill(255-255*e[i].HP/e[i].mHP, 255*e[i].HP/e[i].mHP, 0, 12*(20+e[i].hurt-frameCount));
-        rect(e[i].x, e[i].y-5, 10*e[i].HP/e[i].mHP, 2)
+        rect(e[i].x, e[i].y-8, 10*e[i].HP/100/*e[i].mHP*/, 2)
       }
       if(e[i].HP <= 0){
         e.splice(i, 1);
