@@ -109,7 +109,7 @@ var sketchProc = function(processingInstance){ with (processingInstance){
       if(e[$].a === this.a) continue;
       if(intersect(this.x, this.y, this.px, this.py, e[$].x, e[$].y, this.v)){
         e[$].dmg(dmg[this.ID]);
-        e[$].v = -oomph[this.ID] * omult[e[$].ID];
+        e[$].v -= oomph[this.ID] * omult[e[$].ID];
         this.pierce --;
       }
     }
