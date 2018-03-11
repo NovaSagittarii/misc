@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IsoRPG</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+<body>
+    <div align="center">
+    <h1>Tower Defense</h1>
+    <p>
+      <canvas id="display"></canvas>
+    </p>
+    <p>Made with Processing.js</p>
+    </div>
+  </body>
+  <script src="processing.min.js"></script>
+  <script src="src.js"></script>
+  <script type="application/javascript">
+    var canvas = document.getElementById("display");
+    var processing = new Processing(canvas, sketchProc);
+  </script>
+</html>
