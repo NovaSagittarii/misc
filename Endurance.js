@@ -31,7 +31,7 @@ var keyPressed = function(){
     if(!l){ l = millis(); }
     if(abs(keyCode-89) === 1){
         w ++;
-        o = (millis() - l) - a;
+        o = (millis() - l) - t;
         a += ((millis() - l) - a) / w;
         if(w > 50){
             mark.fill(255, 255, 255);
@@ -109,4 +109,6 @@ var draw = function() {
             rect(constrain(150 - ((millis() - l) - t) / _ACCY, 0, 300) + 50, 395, 5, 30);
         }
     }
+    textSize(10);
+    text(~~this.__frameRate + "FPS", 380, 10);
 };
