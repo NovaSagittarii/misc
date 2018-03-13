@@ -1,4 +1,4 @@
-//Run within https://www.khanacademy.org/cs/new/pjs
+//View at https://csunderground.org/program/0000000045
 
 frameRate(0);
 
@@ -7,7 +7,7 @@ var _LASTING = 4;
 var _ACCY = 4;
 var _msT = 10 * _ACCY;
 
-var keys = [];
+var keys = []; keys[88] = true; keys[90] = true;
 var c = 0;
 var a = 0;
 var w = 0;
@@ -20,6 +20,9 @@ mark.rectMode(CENTER);
 rectMode(CENTER);
 mark.noStroke();
 noStroke();
+
+var mult = 0.5;
+var multV = "";
 
 textAlign(CENTER, CENTER);
 
@@ -50,7 +53,7 @@ var draw = function() {
     rect(-1, -1, 9999, 9999);
     fill(255, 255, 255);
     textSize(25);
-    text("\n" + C+"x", 200, 200);
+    text((w > 50 ? multV + " = " + ~~(60000 / t / mult) + "\n" : "") + "\n" + C+"x", 200, 200);
     for(var i = 88; i <= 90; i += 2){
         textSize(keys[i] + 15);
         pushMatrix();
@@ -77,10 +80,16 @@ var draw = function() {
     switch(true){
         case w < 50:
             textSize(20);
-            text("Calculating SPEED" + "...".substr(0, w % 4) + "\nestimated BPM: " + ~~(60000 / a / 4), 200, 100);
+            text("Calculating SPEED" + "...".substr(0, w % 4) + "\nestimated BPM: " + ~~(60000 / a / mult), 200, 100);
             break;
         case w === 50:
             t = ~~a;
+            var n = 0;
+            while(~~(60000 / t / mult) > 200){
+                n ++;
+                mult *= 2;
+            }
+            multV = "𝅗𝅥  ♩ ♪ 𝅘𝅥𝅯  𝅘𝅥𝅰  𝅘𝅥𝅱  𝅘𝅥𝅲 ".split(' ')[n];
             w ++;
             mark.fill(255, 136, 0);
             mark.rect(0, 20, 210, 40);
@@ -112,3 +121,4 @@ var draw = function() {
     textSize(10);
     text(~~this.__frameRate + "FPS", 380, 10);
 };
+
