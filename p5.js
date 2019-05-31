@@ -46933,7 +46933,7 @@ var _windowPrint = window.print;
  * @alt
  * default grey canvas
 
-this probably isnt needed, also this is breaking KA ;-;
+this probably isnt needed, also this is breaking KA i think? XXXXXX
  */
 /*p5.prototype.print = function() {
   if (!arguments.length) {
@@ -49172,7 +49172,8 @@ p5.prototype._createFriendlyGlobalFunctionBinder = function(options) {
             'a variable. You may want to rename your variable to something ' +
             'else.'
         );
-        globalObject[prop] = value;
+	// another thing that was breaking ka xd
+        //globalObject[prop] = value;
       }
     } else {
       globalObject[prop] = value;
