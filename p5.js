@@ -48819,6 +48819,23 @@ var p5 = function(sketch, node, sync) {
     this._setupDone = true;
   }.bind(this);
 
+  /**
+   * Modified by NovaSagittarii/endgame complete for loading on Chrome for KA XXXXXX
+  */
+  this._windowRequestAnimationFrame = (function() {
+    return (
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function(callback, element) {
+        // should '60' here be framerate?
+        window.setTimeout(callback, 1000 / 60);
+      }
+    );
+  })();
+
   this._draw = function() {
     var now = window.performance.now();
     var time_since_last = now - this._lastFrameTime;
@@ -48855,7 +48872,7 @@ var p5 = function(sketch, node, sync) {
     // get notified the next time the browser gives us
     // an opportunity to draw.
     if (this._loop) {
-      this._requestAnimId = windowRequestAnimationFrame(this._draw);
+      this._requestAnimId = this._windowRequestAnimationFrame(this._draw);
     }
   }.bind(this);
 
@@ -54737,22 +54754,7 @@ module.exports = p5;
   );
 })();*/
 
-/**
- * Modified by NovaSagittarii/endgame complete for loading on Chrome for KA
-*/
-const windowRequestAnimationFrame = (function() {
-  return (
-    window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function(callback, element) {
-      // should '60' here be framerate?
-      window.setTimeout(callback, 1000 / 60);
-    }
-  );
-})();
+
 
 /**
  * shim for Uint8ClampedArray.slice
