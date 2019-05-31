@@ -1,3 +1,21 @@
+// im putting it here so it works.... hopefully
+
+  /**
+   * Modified by NovaSagittarii/endgame complete for loading on Chrome for KA XXXXXX
+  */
+  var windowRequestAnimationFrame = (function() {
+    return (
+      window.requestAnimationFrame ||
+      window.webkitRequestAnimationFrame ||
+      window.mozRequestAnimationFrame ||
+      window.oRequestAnimationFrame ||
+      window.msRequestAnimationFrame ||
+      function(callback, element) {
+        // should '60' here be framerate?
+        window.setTimeout(callback, 1000 / 60);
+      }
+    );
+  })();
 /*! p5.js v0.7.2 September 02, 2018 */
 (function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.p5 = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
 module.exports={
@@ -48819,23 +48837,6 @@ var p5 = function(sketch, node, sync) {
     this._setupDone = true;
   }.bind(this);
 
-  /**
-   * Modified by NovaSagittarii/endgame complete for loading on Chrome for KA XXXXXX
-  */
-  this._windowRequestAnimationFrame = (function() {
-    return (
-      window.requestAnimationFrame ||
-      window.webkitRequestAnimationFrame ||
-      window.mozRequestAnimationFrame ||
-      window.oRequestAnimationFrame ||
-      window.msRequestAnimationFrame ||
-      function(callback, element) {
-        // should '60' here be framerate?
-        window.setTimeout(callback, 1000 / 60);
-      }
-    );
-  })();
-
   this._draw = function() {
     var now = window.performance.now();
     var time_since_last = now - this._lastFrameTime;
@@ -48872,7 +48873,7 @@ var p5 = function(sketch, node, sync) {
     // get notified the next time the browser gives us
     // an opportunity to draw.
     if (this._loop) {
-      this._requestAnimId = this._windowRequestAnimationFrame(this._draw);
+      this._requestAnimId = windowRequestAnimationFrame(this._draw);
     }
   }.bind(this);
 
