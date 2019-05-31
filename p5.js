@@ -46932,14 +46932,16 @@ var _windowPrint = window.print;
  * </code></div>
  * @alt
  * default grey canvas
+
+this probably isnt needed, also this is breaking KA ;-;
  */
-p5.prototype.print = function() {
+/*p5.prototype.print = function() {
   if (!arguments.length) {
     _windowPrint();
   } else {
     console.log.apply(console, arguments);
   }
-};
+};*/
 
 /**
  * The system variable <a href="#/p5/frameCount">frameCount</a> contains the number of frames that have
